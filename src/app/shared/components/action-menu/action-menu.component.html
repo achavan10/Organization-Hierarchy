@@ -1,0 +1,17 @@
+<mat-icon
+  [ngClass]="icon"
+  [matMenuTriggerFor]="menu"
+  fontIcon="{{ icon }}"
+></mat-icon>
+<mat-menu #menu="matMenu">
+  <!-- Menu items -->
+  <ng-container *ngFor="let item of menuItems; let i = index">
+    <button
+      mat-menu-item
+      [disabled]="(item.action === 'DELETE' || item.action === 'CHANGE_REPORTEE') && data.isRootNode"
+      (click)="modifyOrg(data, item.action)">
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span>{{ item.option }}</span>
+    </button>
+  </ng-container>
+</mat-menu>

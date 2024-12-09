@@ -1,0 +1,14 @@
+<div [ngSwitch]="data.action">
+  <div *ngSwitchCase="'ADD'">
+    <app-employee-details-form [inputData]="data" (updateEmployee)="updateOrganizationData($event)"></app-employee-details-form>
+  </div>
+  <div *ngSwitchCase="'UPDATE'">
+    <app-employee-details-form [inputData]="data" (updateEmployee)="updateOrganizationData($event)"></app-employee-details-form>
+  </div>
+  <div *ngSwitchCase="'DELETE'">
+    <app-delete-employee-form [inputData]="data" (deleteEmployee)="deleteFromOrganizationData($event)"></app-delete-employee-form>
+  </div>
+  <div *ngSwitchCase="'CHANGE_REPORTEE'">
+    <app-change-reportee-form [inputData]="data" (changeReportingManager)="updateReportingManagerData($event)"></app-change-reportee-form>
+  </div>
+</div>

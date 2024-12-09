@@ -1,0 +1,26 @@
+<div class="graph-container">
+  <p-organizationChart
+    [value]="employeeData"
+    [style]="{ width: 'auto' }"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+  >
+    <!-- Node template rendered in Graph -->
+    <ng-template let-node pTemplate="person">
+      <div class="node-person">
+        <div class="node-header">
+          <div class="person-name">{{ node.data.name }}</div>
+          <app-action-menu [icon]="menuIcon" [data]="node?.data"></app-action-menu>
+        </div>
+        <div class="node-content">
+          <mat-icon class="person-icon" fontIcon="person"></mat-icon>
+          <div class="person-details">
+            <span>{{ node.data.designation }}</span>
+            <span><b>{{'EMAIL' | translate}}: </b>{{ node.data.email }}</span>
+            <span><b>{{'PHONE' | translate}}: </b>{{ node.data.phone }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-organizationChart>
+</div>

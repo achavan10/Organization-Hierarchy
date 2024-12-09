@@ -1,10 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+/* App level routes with lazy loading */
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/organization',
+    pathMatch: 'full',
+  },
+  {
+    path: 'organization',
+    loadChildren: () =>
+      import('./organization/organization.module').then((m) => m.OrganizationModule),
+  },
+  {
+    path: '**',
+    redirectTo: '/organization',
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

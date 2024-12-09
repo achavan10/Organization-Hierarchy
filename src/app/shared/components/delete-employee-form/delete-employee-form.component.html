@@ -1,0 +1,13 @@
+<div class="title-container">
+  <h1 mat-dialog-title>{{dialogTitle}}</h1>
+  <mat-icon mat-dialog-close fontIcon="close"></mat-icon>
+</div>
+<div mat-dialog-content>
+  <div class="dialog-content">
+    {{ dialogContent }}
+  </div>
+</div>
+<div mat-dialog-actions class="action-btn-container">
+  <button mat-raised-button extended mat-dialog-close>{{'CANCEL' | translate}}</button>
+  <button mat-raised-button mat-dialog-close class="delete-btn" (click)="delete()">{{'DELETE' | translate}}</button>
+</div>

@@ -1,0 +1,22 @@
+@import '../styles.scss';
+
+.toolbar-container {
+  padding-bottom: 20px;
+  border-bottom: 1px solid;
+  height: 150px;
+
+  .btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      margin: 5px 10px;
+      color: $dark-bg-light;
+    }
+
+    button.active {
+      box-shadow: 0 8px 8px $dark-bg-light;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import '../../../../styles.scss';
+
+.grid-container {
+    margin: 20px;
+    height: 75%;
+    overflow: auto;
+    background-color: $dark-cyan;
+    position: relative;
+
+    table {
+        width: 100%;
+        background-color: inherit;
+
+        th {
+            font-size: 20px;
+            font-weight: bolder;
+        }
+
+        .icon-container {
+            cursor: pointer;
+        }
+    }
+
+    mat-paginator {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        background-color: inherit;
+        font-size: 16px;
+    }
+}

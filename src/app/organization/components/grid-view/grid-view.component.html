@@ -1,0 +1,51 @@
+<div class="grid-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <!-- Action menu column -->
+    <ng-container matColumnDef="menu"> 
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row" class="icon-container">
+            <app-action-menu [icon]="menuIcon" [data]="row"></app-action-menu>
+        </td>
+    </ng-container>
+
+    <!-- Employee name column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>{{'NAME' | translate}}</th>
+      <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+    </ng-container>
+
+    <!-- Employee Id column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>{{'EMP_ID' | translate}}</th>
+      <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+    </ng-container>
+
+    <!-- Employee designation column -->
+    <ng-container matColumnDef="designation">
+      <th mat-header-cell *matHeaderCellDef>{{'DESIGNATION' | translate}}</th>
+      <td mat-cell *matCellDef="let row">{{ row.designation }}</td>
+    </ng-container>
+
+    <!-- Employee email column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>{{'EMAIL' | translate}}</th>
+      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+    </ng-container>
+
+    <!-- Employee phone column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>{{'PHONE' | translate}}</th>
+      <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+    </ng-container>
+
+    <!-- Employee manager column -->
+    <ng-container matColumnDef="manager">
+      <th mat-header-cell *matHeaderCellDef>{{'MANAGER' | translate}}</th>
+      <td mat-cell *matCellDef="let row">{{ getManager(row) }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+</div>

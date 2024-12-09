@@ -1,0 +1,48 @@
+<div class="title-container">
+  <h1 mat-dialog-title>{{ dialogTitle }}</h1>
+  <mat-icon mat-dialog-close fontIcon="close"></mat-icon>
+</div>
+<div mat-dialog-content>
+  <div class="dialog-content">
+    {{ dialogContent }}
+  </div>
+
+  <div class="container">
+    <form [formGroup]="form">
+      <!-- Employee name -->
+      <div class="form-group">
+        <label for="name">{{'NAME'| translate}}</label>
+        <span id="name">{{ inputData.node.name }}</span>
+      </div>
+      <!-- Manager dropdown -->
+      <div class="form-group">
+        <label for="manager">{{'MANAGER'| translate}}</label>
+        <select id="manager" formControlName="rmId">
+          <option value="-1">{{'SELECT_MANAGER_OPTION'| translate}}</option>
+          <option *ngFor="let manager of employees" [value]="manager.id">
+            {{ manager.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="form.get('manager')?.touched && form.get('manager')?.invalid"
+        >
+          <small>{{'MANAGER_REQUIRED'| translate}}</small>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions class="action-btn-container">
+  <button mat-raised-button extended mat-dialog-close (click)="cancelForm()">
+    {{'CANCEL'| translate}}
+  </button>
+  <button
+    mat-raised-button
+    mat-dialog-close
+    cdkFocusInitial
+    [disabled]="form.invalid"
+    (click)="saveForm()"
+  >
+  {{'CHANGE_REPORTING'| translate}}
+  </button>
+</div>

@@ -1,1 +1,138 @@
-/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+/* Custom theme palette */
+$dark-primary: mat.define-palette(mat.$indigo-palette);
+$dark-accent: mat.define-palette(mat.$cyan-palette);
+$dark-warn: mat.define-palette(mat.$red-palette);
+$dark-cyan: #00bcd4;
+$dark-bg-light: #ffffff;
+$dark-bg-grey: #6e6d6f;
+
+/* Custom theme */
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+      warn: $dark-warn,
+      dark-cyan: $dark-cyan,
+    ),
+    typography:
+      mat.define-typography-config(
+        $font-family: "Raleway",
+      ),
+  )
+);
+
+/* Apply the theme */
+@include mat.all-component-themes($dark-theme);
+
+/* Add custom styles */
+body {
+  // background-color: mat.get-color-from-palette($dark-primary, 900);
+  background-color: #2f3361;
+  color: mat.get-color-from-palette($dark-primary, 50);
+  padding: 10px;
+  overflow: hidden;
+}
+
+.p-organizationchart-node-content {
+  color: $dark-bg-light;
+  background-color: $dark-cyan;
+  padding: 5px;
+}
+
+.mat-mdc-menu-panel {
+  background-color: $dark-bg-grey !important;
+}
+
+.cdk-overlay-pane {
+  width: 30vw;
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+
+    mat-icon {
+      cursor: pointer;
+    }
+  }
+
+  .container {
+    max-width: 500px;
+    padding-top: 20px;
+
+    .form-group {
+      margin-bottom: 10px;
+
+      label {
+        display: inline-block;
+        margin-right: 50px;
+        width: 10%;
+      }
+
+      input,
+      select {
+        width: 50%;
+        padding: 8px;
+        margin-bottom: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      small {
+        color: mat.get-color-from-palette($dark-warn);
+        font-size: 12px;
+      }
+    }
+  }
+
+  h1 {
+    font-weight: bolder;
+  }
+
+  .action-btn-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+
+    button:nth-child(1) {
+      color: $dark-cyan;
+      border: 1px solid $dark-cyan;
+      margin-right: 10px;
+    }
+
+    button:nth-child(2) {
+      color: $dark-bg-light;
+      border: 1px solid $dark-cyan;
+      background-color: $dark-cyan;
+    }
+
+    button:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  .delete-btn {
+    background-color: mat.get-color-from-palette($dark-warn) !important;
+  }
+
+  .mat-mdc-option.mdc-list-item--selected {
+    .mdc-list-item__primary-text {
+      color: $dark-bg-light !important;
+    }
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  position: relative;
+  .mdc-snackbar__surface {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+  }
+}

@@ -1,0 +1,114 @@
+<div class="title-container">
+  <h1 mat-dialog-title>{{ dialogTitle }}</h1>
+  <mat-icon mat-dialog-close fontIcon="close"></mat-icon>
+</div>
+<div mat-dialog-content>
+  <div class="dialog-content">
+    {{ dialogContent }}
+  </div>
+
+  <div class="container">
+    <form [formGroup]="form">
+      <div
+        class="form-group"
+        *ngIf="!isUpdateForm || !inputData.node.isRootNode"
+      >
+        <label for="reporting_manager">{{ "MANAGER" | translate }}</label>
+        <span id="reporting_manager">{{
+          getReportingManager(inputData.node)
+        }}</span>
+      </div>
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">{{ "NAME" | translate }}</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Enter your name"
+        />
+        <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+          <small *ngIf="form.get('name')?.hasError('required')">{{
+            "NAME_REQUIRED" | translate
+          }}</small>
+          <small *ngIf="form.get('name')?.hasError('minlength')">{{
+            "NAME_MIN_LENGTH_ERROR" | translate
+          }}</small>
+        </div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">{{ "EMAIL" | translate }}</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+          <small *ngIf="form.get('email')?.hasError('required')">{{
+            "EMAIL_REQUIRED" | translate
+          }}</small>
+          <small *ngIf="form.get('email')?.hasError('email')">{{
+            "INVALID_EMAIL" | translate
+          }}</small>
+        </div>
+      </div>
+
+      <!-- Phone Field -->
+      <div class="form-group">
+        <label for="phone">{{ "PHONE" | translate }}</label>
+        <input
+          id="phone"
+          type="text"
+          formControlName="phone"
+          placeholder="Enter your phone number"
+        />
+        <div *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
+          <small *ngIf="form.get('phone')?.hasError('required')">{{
+            "PHONE_REQUIRED" | translate
+          }}</small>
+          <small *ngIf="form.get('phone')?.hasError('pattern')">
+            {{ "PHONE_MIN_LENGTH_ERROR" | translate }}
+          </small>
+        </div>
+      </div>
+
+      <!-- Designation Dropdown -->
+      <div class="form-group">
+        <label for="designation">{{ "DESIGNATION" | translate }}</label>
+        <select id="designation" formControlName="designation">
+          <option value="">{{ "SELECT_DESIGNATION" | translate }}</option>
+          <option
+            *ngFor="let designation of designations"
+            [value]="designation"
+          >
+            {{ designation }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            form.get('designation')?.touched && form.get('designation')?.invalid
+          "
+        >
+          <small>{{'DESIGNATION_REQUIRED' | translate}}</small>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions class="action-btn-container">
+  <button mat-raised-button extended mat-dialog-close (click)="cancelForm()">
+    {{'CANCEL' | translate}}
+  </button>
+  <button
+    mat-raised-button
+    mat-dialog-close
+    cdkFocusInitial
+    [disabled]="form.invalid"
+    (click)="saveForm()"
+  >
+    {{ btnValue }}
+  </button>
+</div>

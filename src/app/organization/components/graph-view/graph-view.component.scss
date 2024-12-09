@@ -1,0 +1,39 @@
+.graph-container {
+  height: calc(100% - 180px);
+  margin-top: 40px;
+  overflow: auto;
+}
+.node-person {
+  min-height: 110px;
+  min-width: 300px;
+  .node-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .person-name {
+      font-weight: bolder;
+    }
+    .settings {
+      font-size: 20px;
+    }
+  }
+
+  .node-content {
+    display: flex;
+    justify-content: flex-start;
+
+    .person-icon {
+      font-size: 50px;
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+    }
+    .person-details {
+      text-align: start;
+      span {
+        display: block;
+      }
+    }
+  }
+}
