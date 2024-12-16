@@ -2,6 +2,7 @@
   [ngClass]="icon"
   [matMenuTriggerFor]="menu"
   fontIcon="{{ icon }}"
+  (click)="$event.stopPropagation()"
 ></mat-icon>
 <mat-menu #menu="matMenu">
   <!-- Menu items -->

@@ -4,6 +4,7 @@
     [style]="{ width: 'auto' }"
     selectionMode="single"
     [(selection)]="selectedNode"
+    (onNodeSelect)="nodeSelect($event)"
   >
     <!-- Node template rendered in Graph -->
     <ng-template let-node pTemplate="person">

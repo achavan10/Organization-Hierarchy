@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { OrganizationService } from '../../services/organization.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-graph-view',
@@ -14,15 +15,38 @@ export class GraphViewComponent implements OnInit, OnDestroy {
   employeeData!: TreeNode[];
   subscriptions: Subscription[] = [];
 
-  constructor(private organizationService: OrganizationService) {}
+  constructor(
+    private organizationService: OrganizationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Get the data in hierchical format to render the graph
+    this.route.params.subscribe((params) => {
+      const id = parseInt(params['id']);
+      this.fetchNodeHierarchy(id);
+    });
+  }
+
+  /**
+   * Fetch node hierarchy to render the graph
+   * @param id
+   */
+  fetchNodeHierarchy(id: number | null = null) {
     this.subscriptions.push(
       this.organizationService
-        .getHierchicalNodes()
+        .getHierchicalNodes(id)
         .subscribe((res) => (this.employeeData = res))
     );
+  }
+
+  /**
+   * Callback event for selecting node in chart
+   * @param event
+   */
+  nodeSelect(event: any) {
+    this.router.navigate(['organization/graph-view', event.node.data.id]);
   }
 
   /**

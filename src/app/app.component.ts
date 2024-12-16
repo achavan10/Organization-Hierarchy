@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  active_view: string = '/graph-view';
+  active_view: string = 'graph-view';
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -34,7 +34,9 @@ export class AppComponent implements OnInit, OnDestroy {
         .getSuccessMessage()
         .subscribe((success) => this.showNotification(success))
     );
-    this.loadView('graph-view');
+    const url: string = window.location.pathname;
+    const bookmarkedUrl: boolean = (url.startsWith('/organization/')) ? true : false;
+    bookmarkedUrl ? this.loadView(url.split('/')[2], url) : this.loadView(this.active_view);
   }
 
   /**
@@ -55,9 +57,9 @@ export class AppComponent implements OnInit, OnDestroy {
    * Loads the specific view eg: Graph / Grid
    * @param view
    */
-  loadView(view: string) {
+  loadView(view: string, url?: string) {
     this.active_view = view;
-    const route: string = `/organization/${view}`;
+    const route: string = url ? url : `/organization/${view}`;
     this.router.navigate([route]);
   }
 

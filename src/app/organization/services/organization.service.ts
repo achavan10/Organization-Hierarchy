@@ -35,8 +35,8 @@ export class OrganizationService {
   }
 
   // Get Hierchical Nodes
-  getHierchicalNodes(): Observable<any[]> {
-    return this.store.select(selectHierarchicalNodes);
+  getHierchicalNodes(id?: number | null): Observable<any[]> {
+    return this.store.select(selectHierarchicalNodes(id));
   }
 
   // Get success messages

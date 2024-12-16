@@ -18,18 +18,39 @@ export const selectFlatNodes = createSelector(
 /**
  * State selector to get the Hierarchical data
  */
-export const selectHierarchicalNodes = createSelector(
-  selectFlatNodes,
-  (nodes) => {
+export const selectHierarchicalNodes = (id?: number | null) =>
+  createSelector(selectFlatNodes, (nodes) => {
     const map = new Map<number | null, Employee[]>();
+    const currentData = nodes.find((d) => d.id === id);
 
-    nodes.forEach((node: Employee) => {
-      const parentId = node.rm_id || null;
-      if (!map.has(parentId)) {
-        map.set(parentId, []);
+    // Get hierarchy when id is passed for any node
+    const getHierarchy = (data: Employee) => {
+      // get parent node
+      const parent: any = nodes.find((d) => d.id === data.rm_id);
+      if (parent) map.set(parent.rm_id || null, [parent]);
+      if (parent && parent.rm_id) getHierarchy(parent);
+    };
+
+    if (currentData && currentData.id) {
+      // get children nodes
+      const children = nodes.filter((d) => d.rm_id === currentData.id);
+      map.set(currentData.id, children);
+
+      // get sibling nodes
+      const sibling = nodes.filter((d) => d.rm_id === currentData.rm_id);
+      if (sibling && sibling.length) {
+        map.set(currentData.rm_id || null, sibling);
+        getHierarchy(currentData);
       }
-      map.get(parentId)?.push(node);
-    });
+    } else {
+      nodes.forEach((node: Employee) => {
+        const parentId = node.rm_id || null;
+        if (!map.has(parentId)) {
+          map.set(parentId, []);
+        }
+        map.get(parentId)?.push(node);
+      });
+    }
 
     // Build Hierarchical data recursively
     const buildTree = (parentId: number | null): TreeNode[] => {
@@ -43,8 +64,7 @@ export const selectHierarchicalNodes = createSelector(
     };
 
     return buildTree(null);
-  }
-);
+  });
 
 /**
  * State selector to get the error

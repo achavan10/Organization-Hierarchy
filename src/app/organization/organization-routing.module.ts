@@ -5,13 +5,17 @@ import { GridViewComponent } from './components/grid-view/grid-view.component';
 
 /* Routes for Organization module */
 const routes: Routes = [
+  {
+    path: 'graph-view',
+    component: GraphViewComponent,
+  },
   { path: '', redirectTo: '/graph-view', pathMatch: 'full' },
-  { path: 'graph-view', component: GraphViewComponent },
-  { path: 'grid-view', component: GridViewComponent }
+  { path: 'graph-view/:id', component: GraphViewComponent },
+  { path: 'grid-view', component: GridViewComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class OrganizationRoutingModule { }
+export class OrganizationRoutingModule {}
